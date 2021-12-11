@@ -1,3 +1,49 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+#retrowaveBG {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+    z-index: -1;
+}
+
+#retrowave {
+    filter: brightness(10%);
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+}
+
+/* Nice to have but not necessary stylings, expiremental, don't count on these working.
+*/
+
+*::selection {
+    color: red;
+    background: purple;
+}
+*::-moz-selection {
+    color: red;
+    background: purple;
+}
+
+ /* width */
+ ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(purple, #d946ef);
+    border-radius: 10px;
+  } 
