@@ -2,23 +2,19 @@ import Head from 'next/head'
 import Header from 'components/Header';
 import Image from 'next/image';
 import logo from 'public/logo.png';
+import Typeography from 'components/Typeography';
+import config from 'config';
 import React, { useEffect, useState } from 'react';
-import Card from 'components/Card';
 export default function Home() {
   return (
-    <>
-    <div className="flex flex-col items-center justify-center">
-      <main className="text-center flex flex-col items-center justify-center">
-        <div className="lg:w-64 w-32">
+    <main>
+      <div className="flex flex-col items-center text-white text-center space-y-5">
+        <div className="lg:w-64 md:w-64 w-32">
           <a href="https://stim-city.creator-spring.com/apparel">
             <Image src={logo} className="h-10"></Image>
           </a>
         </div>
-        <Card>
-          <p>Home Page</p>
-        </Card>
-      </main>
-    </div>
-    </>
+      </div>
+    </main>
   )
 }

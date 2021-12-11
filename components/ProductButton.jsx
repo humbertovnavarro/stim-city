@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { useEffect } from "react";
 export default function ProductButton(props) {
     const { active, index, category } = props;
     const style = `
-    ${active === index ? "text-white" : "text-yellow-100 bg-violet-500"}
+    text-white
     rounded-md
     hover:bg-pink-200
     bg-pink-500
@@ -13,7 +14,7 @@ export default function ProductButton(props) {
     `;
     return (
         <Link href={`/${category.toLowerCase()}`}>
-            <button className={style}>{category}</button>
+            <a className={style}>{category}</a>
         </Link>
     )
 }
