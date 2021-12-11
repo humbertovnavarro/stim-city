@@ -15,7 +15,7 @@ export default function Home() {
           </a>
         </div>
         <Card>
-          <p>Home Page</p>
+          <p>Hello World</p>
         </Card>
       </main>
     </div>

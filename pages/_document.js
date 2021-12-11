@@ -10,6 +10,9 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+        </link>
         <body className="bg-zinc-800">
           <Main />
           <NextScript />
