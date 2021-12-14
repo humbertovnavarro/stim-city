@@ -10,10 +10,11 @@ import Icon from "./Icon";
 export default function Header(props) {
     const buttons = config.categories.map((category, index) => {
         return(
-            <ProductButton category={category} key={index}></ProductButton>
+            <ProductButton hash={props.hash} category={category} key={index}></ProductButton>
         );
     });
     return (
+    <>
     <div className={`
         sticky top-0 z-10
         font-mono
@@ -27,11 +28,11 @@ export default function Header(props) {
         bg-gradient-to-r from-fuchsia-800 to-violet-500
         grid content-center
         grid-cols-1
-        lg:grid-cols-2
         gap-x-1
         gap-y-1
         p-1
     `}>
+
         <div>
             <div className={`grid grid-cols-4 text-center gap-x-1`} >
                 <StimLink href="/">HOME</StimLink>
@@ -40,9 +41,13 @@ export default function Header(props) {
                 <StimLink newtab href={config.shop}>TEESPRING</StimLink>
             </div>
         </div>
+        {
+        props.controls && 
         <div className={`grid grid-cols-5 text-center gap-x-1`}>
-            {buttons}
+        {buttons}
         </div>
+        }
     </div>
+    </>
     )
 }

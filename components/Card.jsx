@@ -1,4 +1,4 @@
-export default function Typeography(props) {
+export default function Card(props) {
     return (
     <div className={`
         flex

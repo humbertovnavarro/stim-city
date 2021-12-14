@@ -1,5 +1,4 @@
 // A stylized link component
-import Typeography from "components/Typeography";
 import Link from 'next/link';
 export default function StimLink(props) {
     const useNextLink = props.href.startsWith("http");
