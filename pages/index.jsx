@@ -6,9 +6,10 @@ import VideoBackground from 'components/VideoBackground';
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {products: [], filters: [], hash: window.location.hash};
+    this.state = {products: [], filters: [], hash: ''};
   }
   componentDidMount() {
+    this.setState({hash: window.location.hash});
     this.hashListener = window.addEventListener('hashchange', () => {
       const hash = window.location.hash;
       const filters = [];
