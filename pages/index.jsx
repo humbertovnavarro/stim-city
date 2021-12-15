@@ -3,17 +3,19 @@ import axios from 'axios';
 import ProductCard from 'components/ProductCard';
 import Header from 'components/Header';
 import VideoBackground from 'components/VideoBackground';
+import sortProducts from 'lib/sortProducts';
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {products: [], filters: [], hash: ''};
+    this.state = {products: [], filters: [], hash: '#misc'};
+    this.handleCategoryClick = this.handleCategoryClick.bind(this);
   }
-  componentDidMount() {
-    this.setState({hash: window.location.hash});
-    this.hashListener = window.addEventListener('hashchange', () => {
+  handleCategoryClick() {
       const hash = window.location.hash;
       const filters = [];
       switch(hash) {
+        case '#all':
+          filters = [];
         case '#hoodies':
           filters = ['hoodie', 'sweater'];
           break;
@@ -31,7 +33,11 @@ export default class Home extends React.Component {
           break;
       }
       this.setState({filters, hash});
-    });
+      console.log('hi');
+  }
+  componentDidMount() {
+    this.setState({hash: window.location.hash});
+    this.hashListener = window.addEventListener('hashchange', this.handleCategoryClick);
     axios.get('/api/products').then(res => {
       this.setState({products: res.data});
     });
@@ -49,6 +55,7 @@ export default class Home extends React.Component {
       });
       return hasCategory;
     });
+    products = sortProducts(products);
     let $productCards = products.map(product => (<ProductCard product={product}/>));
     return (
       <>

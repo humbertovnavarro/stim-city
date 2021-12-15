@@ -14,12 +14,12 @@ export default function StimLink(props) {
     return (
       useNextLink ? (
       <a className={style}
-      href={props.href} target="_blank">
+      href={props.href} target='_blank'>
           {props.children}
       </a>
       )
       : (
-          <Link href={props.href}><a className={style}>{props.children}</a></Link>
+          <Link onClick={props.onClick} href={props.href}><a className={style}>{props.children}</a></Link>
       )
     )
 }
