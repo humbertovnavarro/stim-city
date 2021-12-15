@@ -20,12 +20,6 @@ async function scrape() {
     await page.waitForTimeout(2000);
     const products = await page.evaluate(() => {
         const products = [];
-        const prices = [];
-        const titles = [];
-        const types = [];
-        const frontImages = [];
-        const backImages = [];
-        const links = [];
         function parseImage($el) {
             const backgroundImage = $el.style.backgroundImage;
             const start = backgroundImage.indexOf('"') + 1;
@@ -33,30 +27,25 @@ async function scrape() {
             const url = backgroundImage.substring(start, end);
             return url;
         }
-        document.querySelectorAll('.product-tile-price').forEach($el => {
-            prices.push($el.textContent);
-        });
-        document.querySelectorAll('.product-tile-title').forEach($el => {
-            titles.push($el.textContent);
-        });
-        document.querySelectorAll('.product-tile-product').forEach($el => {
-            types.push($el.textContent);
-        });
-        document.querySelectorAll('.product-tile-image-default').forEach($el => {
-            frontImages.push(parseImage($el));
-        });
-        document.querySelectorAll('.product-tile-link-wrapper').forEach($el => {
-            links.push($el.href);
-        });
-        for(let i = 0; i < titles.length; i++) {
-            products.push({
-                price: prices[i],
-                title: titles[i],
-                type: types[i],
-                frontImage: frontImages[i],
-                link: links[i]
+        document.querySelectorAll('.product-tile').forEach($el => {
+            const price = $el.querySelector('.product-tile-price').innerText;
+            const title = $el.querySelector('.product-tile-title').innerText;
+            const type = $el.querySelector('.product-tile-product').innerText;
+            const frontImage = parseImage($el.querySelector('.product-tile-image-default'));
+            const additionalImages = [];
+            $el.querySelectorAll('.product-tile-additional-image').forEach($el => {
+                additionalImages.push(parseImage($el));
             });
-        }
+            const link = $el.querySelector('.product-tile-link-wrapper').href;
+            products.push({
+                price,
+                title,
+                type,
+                frontImage,
+                additionalImages,
+                link
+            });
+        });
         return products;
     });
     browser.close();
@@ -73,5 +62,6 @@ export default async function handler(req, res) {
             productCache = await scrape();
         },5 * 60 * 1000)
     }
+    console.log(productCache);
     res.send(productCache);
 }
