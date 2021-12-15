@@ -33,8 +33,12 @@ async function scrape() {
             const type = $el.querySelector('.product-tile-product').innerText;
             const frontImage = parseImage($el.querySelector('.product-tile-image-default'));
             const additionalImages = [];
+            const map = new Map();
             $el.querySelectorAll('.product-tile-additional-image').forEach($el => {
-                additionalImages.push(parseImage($el));
+                const url = parseImage($el);
+                if(!map.has(url) && url !== frontImage)
+                    additionalImages.push(parseImage($el));
+                    map.set(url, true);
             });
             const link = $el.querySelector('.product-tile-link-wrapper').href;
             products.push({
@@ -48,14 +52,19 @@ async function scrape() {
         });
         return products;
     });
+    if(products.length === 0) {
+        console.log('No products found, is the page still loading?');
+        browser.close();
+        return productCache;
+    }
     browser.close();
-    fs.writeFile('products.json', JSON.stringify(products));
+    fs.writeFile('products.json', JSON.stringify(products), );
     return products;
 }
 
 export default async function handler(req, res) {
     if(productCache.length === 0) {
-        productCache =  await scrape();
+        productCache = await scrape();
     }
     if(!interval) {
         interval = setInterval(async () => {
