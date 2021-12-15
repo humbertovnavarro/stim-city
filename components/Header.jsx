@@ -21,6 +21,7 @@ export default function Header(props) {
         rounded-lg shadow-lg p-1
         text-white
         active:translate-y-px
+        p-2
     `;
     return (
     <>
@@ -29,8 +30,9 @@ export default function Header(props) {
         font-mono
         border-b-1
         min-w-full
-        lg:text-xl md:text-l sm:text-s
-        min-h-16
+        text-xs
+        lg:text-xl
+        md:text-xl
         rounded-md
         shadow-md
         text-white
@@ -39,7 +41,7 @@ export default function Header(props) {
         grid-cols-1
         gap-x-1
         gap-y-1
-        p-1
+        p-2
     `}>
         <div>
             <div className={`grid grid-cols-4 text-center gap-x-1`} >
@@ -52,10 +54,10 @@ export default function Header(props) {
             </div>
         </div>
         {
-        props.controls &&
-        <div className={`grid grid-cols-5 text-center gap-x-1`}>
-        {buttons}
-        </div>
+            props.controls &&
+            <div className={`grid grid-cols-5 text-center gap-x-1`}>
+            {buttons}
+            </div>
         }
     </div>
     </>

@@ -9,6 +9,7 @@ export default function StimLink(props) {
         rounded-lg shadow-lg p-1
         text-white
         active:translate-y-px
+        p-2
         ${props.className}
     `;
     return (

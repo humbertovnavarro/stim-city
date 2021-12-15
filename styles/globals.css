@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+  scroll-behavior: smooth;
+}
 #retrowaveBG {
     position: fixed;
     right: 0;

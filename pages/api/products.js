@@ -62,6 +62,5 @@ export default async function handler(req, res) {
             productCache = await scrape();
         },5 * 60 * 1000)
     }
-    console.log(productCache);
     res.send(productCache);
 }

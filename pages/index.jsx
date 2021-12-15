@@ -62,8 +62,8 @@ export default class Home extends React.Component {
       <VideoBackground/>
       <Header controls hash={this.state.hash}></Header>
       <main>
-        <div className="my-5 flex flex-col items-center text-white text-center space-y-5">
-          <div className="flex flex-wrap justify-center items-center">
+        <div className="my-1 lg:my-3 md:my-5 flex flex-col items-center text-white text-center space-y-5">
+          <div className="overflow-scroll	flex flex-wrap justify-center items-center">
             { $productCards }
           </div>
         </div>

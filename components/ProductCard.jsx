@@ -4,7 +4,7 @@ export default function ProductCard(props) {
     let product = props.product;
     return (
         <a href={product.link}>
-            <Card className="w-64 m-5">
+            <Card className="lg:w-64 w-65 lg:m-5 m-2">
                 <h1>{product.title}</h1>
                 <h2 className="italic text-sm">{product.type}</h2>
                 <img className="rounded-lg " src={product.frontImage}></img>
