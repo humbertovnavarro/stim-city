@@ -61,7 +61,16 @@ export default class Home extends React.Component {
       <>
       <VideoBackground/>
       <Header controls hash={this.state.hash}></Header>
-      <main>
+      <main className='flex flex-col item-center justify-center w-full'>
+        <img src="/api/banner" alt="Banner" className="
+          w-full
+          rounded-lg
+          object-cover
+          shadow-lg
+          border-violet-500
+          h-32
+          lg:h-64
+        "></img>
         <div className="my-1 lg:my-3 md:my-5 flex flex-col items-center text-white text-center space-y-5">
           <div className="flex flex-wrap justify-center items-center">
             { $productCards }
