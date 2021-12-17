@@ -22,15 +22,14 @@ async function scrape() {
   browser.close();
   return image;
 }
-
-export default async function handler(req, res) {
-  if (!imageCache) {
+export default async function getBanner(req, res) {
+  if (imageCache === '') {
     imageCache = await scrape();
   }
   if (!interval) {
     interval = setInterval(async () => {
-      productCache = await scrape();
+       imageCache = await scrape();
     }, 6 * 60 * 1000)
   }
-  res.redirect(imageCache);
+  res.send({banner: imageCache});
 }

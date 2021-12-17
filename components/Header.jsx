@@ -7,6 +7,7 @@ import Image from "next/image";
 import logo from '/public/logo.png';
 import Icon from "./Icon";
 import { useRouter } from 'next/router';
+import axios from "axios";
 export default function Header(props) {
     const router = useRouter();
     const buttons = config.categories.map((category, index) => {
