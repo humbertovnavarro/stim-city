@@ -36,7 +36,6 @@ export default class Home extends React.Component {
           break;
       }
       this.setState({filters, hash});
-      console.log('hi');
   }
   componentDidMount() {
     this.setState({hash: window.location.hash});

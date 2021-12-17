@@ -59,7 +59,7 @@ async function scrape() {
     }
     browser.close();
     fs.writeFile('products.json', JSON.stringify(products), );
-    return products;
+    return products.reverse();
 }
 
 export default async function handler(req, res) {
