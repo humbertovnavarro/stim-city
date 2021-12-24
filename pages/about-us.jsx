@@ -4,12 +4,14 @@ import logo from 'public/logo.png';
 import React from 'react';
 import config from 'config';
 import Card from 'components/Card';
+import Footer from 'components/Footer';
 import VideoBackground from 'components/VideoBackground';
 export default function AboutUs() {
   return (
     <>
       <VideoBackground/>
-      <main>
+      <Footer/>
+      <main className="mb-40">
         <Header/>
         <div className="my-5 flex flex-col items-center text-white text-center space-y-5">
           <div className="lg:w-32 md:w-16 w-8">

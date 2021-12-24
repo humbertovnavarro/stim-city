@@ -4,13 +4,14 @@ import ProductCard from 'components/ProductCard';
 import Header from 'components/Header';
 import VideoBackground from 'components/VideoBackground';
 import sortProducts from 'lib/sortProducts';
+import Footer from 'components/Footer';
 export default class Home extends React.Component {
   constructor(props) {
     axios.get('/api/banner').then(res => {
       this.setState({banner: res.data.banner});
     });
     super(props);
-    this.state = {products: [], filters: [], hash: '#misc'};
+    this.state = {products: [], filters: [], hash: '#all'};
     this.handleCategoryClick = this.handleCategoryClick.bind(this);
   }
   handleCategoryClick() {
@@ -61,9 +62,10 @@ export default class Home extends React.Component {
     let $productCards = products.map(product => (<ProductCard product={product}/>));
     return (
       <>
+      <Footer/>
       <VideoBackground/>
       <Header controls hash={this.state.hash}></Header>
-      <main className='flex flex-col item-center justify-center w-full'>
+      <main className='grow flex flex-col item-center justify-center w-full mb-20'>
         {
           this.state.banner &&
           <img src={this.state.banner} alt="Banner" className="

@@ -45,12 +45,16 @@ export default function Header(props) {
         p-2
     `}>
         <div>
-            <div className={`grid grid-cols-4 text-center gap-x-1`} >
-                <a onClick={(e) => {e.preventDefault(); router.push('/#misc'); window.dispatchEvent(new HashChangeEvent("hashchange")); }} className={style} href={`/#misc`}>
+            <div className={`grid grid-cols-5 text-center gap-x-1`} >
+                <a onClick={(e) => {e.preventDefault(); router.push('/#all'); window.dispatchEvent(new HashChangeEvent("hashchange")); }} className={style} href={`/#misc`}>
                     HOME
                 </a>
                 <StimLink href="/about-us">ABOUT US</StimLink>
-                <StimLink newtab href={config.discord}>DISCORD</StimLink>
+                <StimLink newtab href={config.instagram}>
+                    <img className="lg:block hidden w-8" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="instagram" />
+                    INSTAGRAM
+                </StimLink>
+                <StimLink newtab href={`mailto: ${config.email}`}>CONTACT US</StimLink>
                 <StimLink newtab href={config.shop}>TEESPRING</StimLink>
             </div>
         </div>
