@@ -17,6 +17,7 @@ export default class Home extends React.Component {
       switch(hash) {
         case '#all':
           filters = [];
+          break;
         case '#hoodies':
           filters = ['hoodie', 'sweater'];
           break;
@@ -42,18 +43,20 @@ export default class Home extends React.Component {
       this.setState({products: res.data});
     });
   }
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this.handleCategoryClick);
+  }
   render() {
-    let products = this.state.products.filter(product => {
-      if(this.state.filters.length === 0) {
-        return true;
-      }
-      let hasCategory = false;
-      this.state.filters.forEach(filter => {
-        if(product.type.toLowerCase().includes(filter)) {
-          hasCategory = true;
-        }
-      });
-      return hasCategory;
+    let { products, filters, hash } = this.state;
+    if(filters.length > 0)
+      products = products.filter(product => {
+        let hasCategory = false;
+        filters.forEach(filter => {
+          if(product.type.toLowerCase().includes(filter)) {
+            hasCategory = true;
+          }
+        });
+        return hasCategory;
     });
     products = sortProducts(products);
     let $productCards = products.map(product => (<ProductCard product={product}/>));
@@ -61,7 +64,7 @@ export default class Home extends React.Component {
       <>
       <Footer/>
       <VideoBackground/>
-      <Header controls hash={this.state.hash}></Header>
+      <Header controls hash={hash}></Header>
       <main className='grow flex flex-col item-center justify-center w-full mb-20'>
         {
           <img src="/api/banner" alt="Banner" className="

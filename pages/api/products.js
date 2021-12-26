@@ -13,7 +13,7 @@ async function scrape() {
     const page = await browser.newPage();
     page.setUserAgent(randomUseragent.getRandom());
     await page.goto(URL);
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
     await page.evaluate(() => {
         window.scrollTo(0,document.body.scrollHeight);
     });
