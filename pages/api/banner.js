@@ -31,5 +31,5 @@ export default async function getBanner(req, res) {
        imageCache = await scrape();
     }, 6 * 60 * 1000)
   }
-  res.send({banner: imageCache});
+  res.redirect(307, imageCache);
 }
