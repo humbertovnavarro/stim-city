@@ -60,7 +60,7 @@ export default function Header(props) {
         </div>
         {
             props.controls &&
-            <div className={`grid grid-cols-5 text-center gap-x-1`}>
+            <div className={`grid grid-cols-4 text-center gap-x-1`}>
             {buttons}
             </div>
         }

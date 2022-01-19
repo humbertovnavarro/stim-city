@@ -27,14 +27,16 @@ export default class Home extends React.Component {
         case '#stickers':
           filters = ['sticker'];
           break;
-        case '#hats':
-          filters = ['hat']
+        case '#accessories':
+          filters = ['case', 'sunglasses', 'watch', 'sticker', 'hat'];
           break;
         default:
           filters = [];
           break;
       }
       this.setState({filters, hash});
+      console.log(hash);
+      console.log(filters);
   }
   componentDidMount() {
     this.setState({hash: window.location.hash});
@@ -52,14 +54,14 @@ export default class Home extends React.Component {
       products = products.filter(product => {
         let hasCategory = false;
         filters.forEach(filter => {
-          if(product.type.toLowerCase().includes(filter)) {
+          if(product.type.toLowerCase().includes(filter) || product.title.toLowerCase().includes(filter)) {
             hasCategory = true;
           }
         });
         return hasCategory;
     });
     products = sortProducts(products);
-    let $productCards = products.map(product => (<ProductCard product={product}/>));
+    let $productCards = products.map((product, index) => (<ProductCard key={index} product={product}/>));
     return (
       <>
       <Footer/>

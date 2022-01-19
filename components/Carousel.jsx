@@ -48,7 +48,7 @@ export default class Carousel extends React.Component {
 
   render() {
     const $dots = this.props.slides.map((slide, index) => {
-      return <span className={`
+      return <span key={index} className={`
       ${index === this.state.index ? 'text-black' : 'text-gray-500'}
       transition-all
       material-icons ${this.state.panning ? 'opacity-100' : 'opacity-0'}

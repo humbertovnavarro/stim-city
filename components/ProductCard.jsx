@@ -14,7 +14,6 @@ export default function ProductCard(props) {
     ));
     $images.push(<img src={frontImage} alt={title}/>)
     return (
-
             <Card className="w-64 m-5">
                 <h1>{title}</h1>
                 <h2 className="italic text-sm mb-2">{type}</h2>
