@@ -1,25 +1,22 @@
 import { product } from 'puppeteer';
 import 'fs';
+
 const URL = 'https://stim-city.creator-spring.com';
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 const randomUseragent = require('random-useragent');
 let productCache = [];
-if(fs.existsSync('products.json'))
-productCache = JSON.parse(fs.readFileSync('products.json'));
 let interval = null;
-async function scrape() {
-    const browser = await puppeteer.launch({headless: true});
-    const page = await browser.newPage();
-    page.setUserAgent(randomUseragent.getRandom());
-    await page.goto(URL);
-    await page.waitForTimeout(3000);
-    await page.evaluate(() => {
-        window.scrollTo(0,document.body.scrollHeight);
-    });
-    await page.waitForTimeout(2000);
-    const products = await page.evaluate(() => {
-        const products = [];
+
+try {
+    productCache = JSON.parse(fs.readFileSync('products.json'));
+    console.log("loaded files from cache")
+} catch(error) {
+    consoler.error('Could not read cache from file');
+}
+// Runs in the browser
+function evaluater() {
+        const scrapedProducts = [];
         function parseImage($el) {
             const backgroundImage = $el.style.backgroundImage;
             const start = backgroundImage.indexOf('"') + 1;
@@ -36,12 +33,12 @@ async function scrape() {
             const map = new Map();
             $el.querySelectorAll('.product-tile-additional-image').forEach($el => {
                 const url = parseImage($el);
-                if(!map.has(url) && url !== frontImage)
+                if (!map.has(url) && url !== frontImage)
                     additionalImages.push(parseImage($el));
-                    map.set(url, true);
+                map.set(url, true);
             });
             const link = $el.querySelector('.product-tile-link-wrapper').href;
-            products.push({
+            scrapedProducts.push({
                 price,
                 title,
                 type,
@@ -50,26 +47,49 @@ async function scrape() {
                 link
             });
         });
-        return products;
+        return scrapedProducts;
+}
+
+async function scrape() {
+    const browser = await puppeteer.launch({headless: true});
+    const page = await browser.newPage();
+    page.setUserAgent(randomUseragent.getRandom());
+    await page.goto(URL);
+    await page.waitForTimeout(3000);
+    await page.evaluate(() => {
+        window.scrollTo(0,document.body.scrollHeight);
     });
-    if(products.length === 0) {
-        console.log('No products found, is the page still loading?');
+    await page.waitForTimeout(2000);
+    let products = [];
+    try {
+        products = await page.evaluate(evaluater);
+    } catch(error) {
         browser.close();
-        return productCache;
+        console.error("Error while scraping page.");
+        return;
+    }
+    if(!Array.isArray(products) || products.length === 0) {
+        console.log('Bad scraping data');
+        browser.close();
+        return;
+    }
+    productCache = products;
+    try {
+        fs.writeFileSync('./products.json', JSON.stringify(products));
+    } catch {
+        console.error("Could not write cache to file");
     }
     browser.close();
-    fs.writeFile('products.json', JSON.stringify(products), );
-    return products.reverse();
 }
 
 export default async function handler(req, res) {
     if(productCache.length === 0) {
-        productCache = await scrape();
+        await scrape();
     }
     if(!interval) {
         interval = setInterval(async () => {
             try {
-                productCache = await scrape();
+                await scrape();
             } catch(error) {
                 console.error(error);
             }

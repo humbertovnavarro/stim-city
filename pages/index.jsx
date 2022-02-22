@@ -13,6 +13,9 @@ export default class Home extends React.Component {
   }
   handleCategoryClick() {
       const hash = window.location.hash;
+      if(hash == this.state.hash) {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+      }
       let filters = [];
       switch(hash) {
         case '#all':
@@ -68,19 +71,20 @@ export default class Home extends React.Component {
       <VideoBackground/>
       <Header controls hash={hash}></Header>
       <main className='grow flex flex-col item-center justify-center w-full mb-20'>
-        {
-          <img src="/api/banner" alt="Banner" className="
-            w-full
+          <img src="/banner.png" alt="Banner" className="
             rounded-lg
-            object-cover
             shadow-lg
             border-violet-500
             h-32
+            mt-5
+            rounded-md
+            ml-auto
+            mr-auto
+            lg:w-3/5
             lg:h-64
             bg-violet-500
           "></img>
-        }
-        <div className="my-1 lg:my-3 md:my-5 flex flex-col items-center text-white text-center space-y-5">
+        <div className="flex flex-col items-center text-white text-center space-y-5">
           <div className="flex flex-wrap justify-center items-center">
             { $productCards }
           </div>
