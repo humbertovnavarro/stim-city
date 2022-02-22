@@ -68,7 +68,11 @@ export default async function handler(req, res) {
     }
     if(!interval) {
         interval = setInterval(async () => {
-            productCache = await scrape();
+            try {
+                productCache = await scrape();
+            } catch(error) {
+                console.error(error);
+            }
         },5 * 60 * 1000)
     }
     res.send(productCache);

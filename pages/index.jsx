@@ -13,7 +13,7 @@ export default class Home extends React.Component {
   }
   handleCategoryClick() {
       const hash = window.location.hash;
-      const filters = [];
+      let filters = [];
       switch(hash) {
         case '#all':
           filters = [];
