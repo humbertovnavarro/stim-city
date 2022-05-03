@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import ProductCard from 'components/ProductCard';
 import Header from 'components/Header';

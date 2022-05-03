@@ -1,18 +1,12 @@
-import Link from "next/link"
-import { useEffect, useState } from "react"
 import ProductButton from "./ProductButton";
 import config from 'config';
 import StimLink from "./StimLink";
-import Image from "next/image";
-import logo from '/public/logo.png';
-import Icon from "./Icon";
 import { useRouter } from 'next/router';
-import axios from "axios";
 export default function Header(props) {
     const router = useRouter();
     const buttons = config.categories.map((category, index) => {
         return(
-            <ProductButton hash={props.hash} category={category} key={index}></ProductButton>
+            <ProductButton hash={props.hash} category={category.replace(" ", "-")} key={index}></ProductButton>
         );
     });
     const style = `
@@ -60,7 +54,7 @@ export default function Header(props) {
         </div>
         {
             props.controls &&
-            <div className={`grid grid-cols-4 text-center gap-x-1`}>
+            <div className={`grid grid-cols-5 text-center gap-x-1`}>
             {buttons}
             </div>
         }

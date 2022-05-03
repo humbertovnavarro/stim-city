@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import Card from "./Card";
 import Carousel from './Carousel';
 import StimLink from "./StimLink";
 export default function ProductCard(props) {
-    let product = props.product;
     const { frontImage, additionalImages, title, price, type, link } = props.product;
     const $images = additionalImages.map((image, i) =>
     (

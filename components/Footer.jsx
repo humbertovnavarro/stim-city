@@ -1,6 +1,5 @@
 import config from 'config.json';
 import { useEffect, useState } from 'react';
-import Card from './Card';
 
 export default function Footer(props) {
   const checkIsNearBottom = () => {
