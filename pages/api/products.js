@@ -1,6 +1,3 @@
-import { product } from 'puppeteer';
-import 'fs';
-
 const URL = 'https://stim-city.creator-spring.com';
 const fs = require('fs');
 const puppeteer = require('puppeteer');
@@ -64,15 +61,17 @@ async function scrape() {
     await page.waitForTimeout(2000);
     const products = await page.evaluate(evaluater);
     if(!Array.isArray(products) || products.length === 0) {
-        console.log('Bad scraping data');
-        browser.close();
+        console.log('no products found while scraping');
+        page.close();
         return;
     }
     productCache = products;
     fs.writeFileSync('./products.json', JSON.stringify(products));
+    page.close();
 }
 
-export default async function handler(req, res) {
+const productsRefreshInterval = 5 * 60 * 100
+export default async function handler(_, res) {
     if(!interval) {
         interval = setInterval(async () => {
             try {
@@ -80,7 +79,8 @@ export default async function handler(req, res) {
             } catch(error) {
                 console.error(error);
             }
-        }, 5 * 60 * 1000)
+        }, productsRefreshInterval)
+        scrape();
     }
     res.send(productCache);
 }
