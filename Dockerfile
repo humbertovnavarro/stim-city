@@ -5,4 +5,4 @@ RUN apt install $(cat deps.txt) -y
 COPY . .
 RUN yarn install
 RUN yarn build
-CMD [ "yarn", "start"]
+CMD [ "yarn", "next", "start", "-p", "80"]
