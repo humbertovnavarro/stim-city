@@ -1,8 +1,7 @@
-FROM node:16-bullseye
-COPY deps.txt ./deps.txt
-RUN apt update
-RUN apt install $(cat deps.txt) -y
-COPY . .
-RUN yarn install
-RUN yarn build
-CMD [ "yarn", "next", "start", "-p", "80"]
+FROM node:lts-alpine
+WORKDIR /app
+COPY . /app
+RUN npm install
+RUN npm run build
+EXPOSE 80
+CMD ["npm", "run", "production"]

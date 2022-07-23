@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import ProductCard from 'components/ProductCard';
 import Header from 'components/Header';
@@ -44,7 +44,7 @@ export default class Home extends React.Component {
   componentDidMount() {
     this.setState({hash: window.location.hash});
     this.hashListener = window.addEventListener('hashchange', this.handleCategoryClick);
-    axios.get('/api/products').then(res => {
+    axios.get('/products.json').then(res => {
       this.setState({products: res.data});
     });
   }
