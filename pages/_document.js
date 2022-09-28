@@ -13,7 +13,7 @@ class MyDocument extends Document {
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
         rel="stylesheet">
         </link>
-        <body className="bg-zinc-800">
+        <body className="bg-transparent">
           <Main />
           <NextScript />
         </body>
